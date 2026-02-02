@@ -1,19 +1,26 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Portfolio() {
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "USAI Film",
-      category: "Video",
-      sinopsis: "Professional corporate video for multinational company",
-      image: "https://via.placeholder.com/400x300?text=Corporate+Video",
-      thumbnail: "s/thumbnails/usai.jpg", // place your manual thumbnail in public/thumbnails/usai.jpg
-      videoUrl: "https://www.youtube.com/embed/lTY3ZnFc48c",
-    },
-  ];
+  const [portfolioItems, setPortfolioItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const response = await fetch('/api/portfolios');
+        const data = await response.json();
+        setPortfolioItems(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching portfolios:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolios();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -54,14 +61,23 @@ export default function Portfolio() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {portfolioItems.map((item) => (
+        {loading ? (
+          <div className="text-center text-white">
+            <p>Loading portfolios...</p>
+          </div>
+        ) : portfolioItems.length === 0 ? (
+          <div className="text-center text-white">
+            <p>No portfolios available yet.</p>
+          </div>
+        ) : (
+          <motion.div
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {portfolioItems.map((item) => (
             <motion.div
               key={item.id}
               variants={itemVariants}
@@ -69,16 +85,16 @@ export default function Portfolio() {
               className="group cursor-pointer"
             >
               <div className="relative overflow-hidden rounded-lg h-64 bg-gray-300">
-                {item.videoUrl ? (
+                {item.video_url ? (
                   <>
                     <img
-                      src={item.image}
+                      src={item.image ? `/storage/${item.image}` : 'https://via.placeholder.com/400x300'}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                     />
                     <div 
                       className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition duration-300 cursor-pointer"
-                      onClick={() => setSelectedVideo(item.videoUrl)}
+                      onClick={() => setSelectedVideo(item.video_url)}
                     >
                       <motion.div
                         className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center"
@@ -97,7 +113,7 @@ export default function Portfolio() {
                 ) : (
                   <>
                     <img
-                      src={item.image}
+                      src={item.image ? `/storage/${item.image}` : 'https://via.placeholder.com/400x300'}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                     />
@@ -142,6 +158,7 @@ export default function Portfolio() {
             </motion.div>
           ))}
         </motion.div>
+        )}
 
         {selectedVideo && (
           <motion.div

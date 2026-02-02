@@ -10,7 +10,8 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import bgImage from "./assets/btsfotopin.jpg";
+const bgImage = "/images/btsfotopin.jpg";
+const bgVidio = "/vidio/heros-video.mp4";
 
 export default function App() {
   return (
@@ -18,11 +19,16 @@ export default function App() {
       <Navbar />
 
       <section id="home" className="min-h-screen flex items-center pt-24 relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${bgImage})` }}
-        ></div>
-        <div className="absolute inset-0  from-black/80 via-black/70 to-black/90"></div>
+        <video
+          src={bgVidio}
+          alt="Ventio production background"
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="absolute inset-0 bg-gradient-to-black from-black/80 via-black/70 to-black/90"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -70,7 +76,7 @@ export default function App() {
                     Fast turnaround with premium quality
                   </li>
                 </ul>
-                <div className="grid grid-cols-3 gap-4 mt-6">
+                {/* <div className="grid grid-cols-3 gap-4 mt-6">
                   <div className="text-center">
                     <div className="text-2xl font-bold">25+</div>
                     <div className="text-xs text-white/60">Projects</div>
@@ -83,7 +89,7 @@ export default function App() {
                     <div className="text-2xl font-bold">14</div>
                     <div className="text-xs text-white/60">Awards</div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -97,8 +103,8 @@ export default function App() {
               <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
                 About us
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                V E N T I O . P R O D U C T I O N
+              <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "Pairdlay" }}>
+                V E N T I O . M E D I A
               </h2>
               <p className="text-white/80 mb-6">
                 Ventio is a creative production house focused on cinematic
