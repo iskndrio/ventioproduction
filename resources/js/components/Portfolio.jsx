@@ -24,6 +24,40 @@ export default function Portfolio() {
     return url;
   };
 
+  const getYoutubeVideoId = (url) => {
+    if (!url) return null;
+
+    // youtu.be/VIDEO_ID
+    if (url.includes("youtu.be")) {
+      return url.split("youtu.be/")[1]?.split("?")[0];
+    }
+
+    // youtube.com/watch?v=VIDEO_ID
+    if (url.includes("watch?v=")) {
+      try {
+        return new URL(url).searchParams.get("v");
+      } catch {
+        return null;
+      }
+    }
+
+    // youtube.com/embed/VIDEO_ID
+    if (url.includes("/embed/")) {
+      const match = url.match(/\/embed\/([^?&]+)/);
+      return match ? match[1] : null;
+    }
+
+    return null;
+  };
+
+  const getYoutubeThumbnail = (url) => {
+    const videoId = getYoutubeVideoId(url);
+    if (!videoId) return null;
+
+    // Use maxresdefault for highest quality, fallback to hqdefault if not available
+    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  };
+
   useEffect(() => {
     const fetchPortfolios = async () => {
       try {
@@ -109,9 +143,11 @@ export default function Portfolio() {
                 <div className="relative overflow-hidden rounded-lg h-64 bg-gray-800">
                   <img
                     src={
-                      item.image
-                        ? `/storage/${item.image}`
-                        : "https://via.placeholder.com/400x300"
+                      item.video_url && getYoutubeThumbnail(item.video_url)
+                        ? getYoutubeThumbnail(item.video_url)
+                        : item.image
+                          ? `/storage/${item.image}`
+                          : "https://via.placeholder.com/400x300"
                     }
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-300"

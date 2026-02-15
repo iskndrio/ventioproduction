@@ -44,22 +44,7 @@ class PortfolioForm
                             ->url()
                             ->placeholder('https://www.youtube.com/embed/...'),
                     ])->columns(1),
-                
-                Section::make('Media')
-                    ->schema([
-                        FileUpload::make('image')
-                            ->label('Image/Cover')
-                            ->image()
-                            ->directory('portfolio/images')
-                            ->maxSize(5120),
-                        
-                        FileUpload::make('thumbnail')
-                            ->label('Thumbnail')
-                            ->image()
-                            ->directory('portfolio/thumbnails')
-                            ->maxSize(2048),
-                    ])->columns(2),
-                
+                          
                 Section::make('Settings')
                     ->schema([
                         TextInput::make('order')

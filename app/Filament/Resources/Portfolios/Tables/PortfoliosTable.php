@@ -23,10 +23,10 @@ class PortfoliosTable
                     ->label('#')
                     ->sortable(),
                 
-                ImageColumn::make('image')
-                    ->label('Image')
-                    ->disk('public')
-                    ->size(60),
+                ImageColumn::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->size(60)
+                    ->square(),
                 
                 TextColumn::make('title')
                     ->label('Title')
