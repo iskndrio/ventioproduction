@@ -25,7 +25,8 @@ class PortfoliosTable
                 
                 ImageColumn::make('image')
                     ->label('Image')
-                    ->circular(),
+                    ->disk('public')
+                    ->size(60),
                 
                 TextColumn::make('title')
                     ->label('Title')

@@ -15,10 +15,13 @@ const bgVidio = "/vidio/heros-video.mp4";
 
 export default function App() {
   return (
-    <div className="text-gray-100 bg-[#090f15]">
+    <div
+      className="text-gray-100 bg-[#090f15]"
+      style={{ fontFamily: "Poppins, system-ui, -apple-system, sans-serif" }}
+    >
       <Navbar />
 
-      <section id="home" className="min-h-screen flex items-center pt-24 relative overflow-hidden">
+      <section id="home" className="min-h-screen flex items-center pt-20 sm:pt-24 relative overflow-hidden">
         <video
           src={bgVidio}
           alt="Ventio production background"
@@ -28,31 +31,31 @@ export default function App() {
           muted
           playsInline
         />
-        <div className="absolute inset-0 bg-gradient-to-black from-black/80 via-black/70 to-black/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-black from-black/85 via-black/80 to-black/95"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+              <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-white/60 mb-3 sm:mb-4">
                 Creative Production House
               </p>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                 Cinematic stories that move, breathe, and linger.
               </h1>
-              <p className="text-lg md:text-xl text-white/80 mb-10">
+              <p className="text-base sm:text-lg md:text-xl text-white/80 mb-8 sm:mb-10">
                 Ventio crafts visual narratives with quiet pressure and bold
                 impact—slow, soft, unforgettable.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <a
                   href="#contact"
-                  className="bg-white text-black px-7 py-3 font-semibold rounded-full hover:scale-105 transition inline-flex items-center gap-2"
+                  className="bg-white text-black px-6 sm:px-7 py-3 font-semibold rounded-full hover:scale-105 transition inline-flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   Start a Project
                 </a>
                 <a
                   href="#portfolio"
-                  className="border border-white/70 text-white px-7 py-3 font-semibold rounded-full hover:bg-white/10 transition inline-flex items-center gap-2"
+                  className="border border-white/70 text-white px-6 sm:px-7 py-3 font-semibold rounded-full hover:bg-white/10 transition inline-flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   View Portfolio
                 </a>
@@ -96,22 +99,22 @@ export default function App() {
         </div>
       </section>
 
-      <section id="about" className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section id="about" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+              <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-white/60 mb-3 sm:mb-4">
                 About us
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "Pairdlay" }}>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6" style={{ fontFamily: "Pairfly" }}>
                 V E N T I O . M E D I A
               </h2>
-              <p className="text-white/80 mb-6">
+              <p className="text-white/80 mb-6 text-base sm:text-lg">
                 Ventio is a creative production house focused on cinematic
                 storytelling and visual identity. We help brands and artists
                 translate ideas into imagery that moves audiences.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              {/* <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <div className="text-2xl font-bold">360°</div>
                   <div className="text-xs text-white/60">Full production</div>
@@ -128,7 +131,7 @@ export default function App() {
                   <div className="text-2xl font-bold">48h</div>
                   <div className="text-xs text-white/60">First cut</div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="rounded-2xl overflow-hidden border border-white/10">
               <img
@@ -141,21 +144,21 @@ export default function App() {
         </div>
       </section>
 
-      <section id="services" className="py-24 relative">
+      <section id="services" className="py-16 sm:py-24 relative">
         <div className="absolute inset-0 bg-[#0b121a]"></div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] sm:tracking-[0.35em] text-white/60 mb-3 sm:mb-4">
               Services
             </p>
-            <h2 className="text-4xl font-bold">Creative Services</h2>
-            <p className="text-white/70 max-w-2xl mx-auto mt-4">
+            <h2 className="text-3xl sm:text-4xl font-bold" style={{ fontFamily: "Pair"}}>What We Do</h2>
+            <p className="text-white/70 max-w-2xl mx-auto mt-3 sm:mt-4 text-base sm:text-lg">
               End-to-end production tailored for brands, films, and digital
               experiences.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             <div className="group p-8 border border-white/10 hover:border-white/30 transition bg-white/5 rounded-2xl">
               <div className="text-3xl mb-4 text-white/90 bg-white/10 w-12 h-12 rounded-full flex items-center justify-center">
                 <FontAwesomeIcon icon={faFilm} />
@@ -223,12 +226,12 @@ export default function App() {
         </div>
       </section>
       <Portfolio />
-      <section id="contact" className="py-24 bg-[#314b6e]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+      <section id="contact" className="py-16 sm:py-24 bg-[#314b6e]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-4">Let’s Work Together</h2>
-              <p className="text-white/80 mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Let’s Work Together</h2>
+              <p className="text-white/80 mb-5 sm:mb-6 text-base sm:text-lg">
                 Have a project in mind? Tell us your idea and we’ll help you
                 craft a powerful visual story.
               </p>
@@ -261,9 +264,9 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-white/10 border border-white/20 rounded-2xl p-8">
-              <h3 className="text-xl font-semibold mb-4">Project Details</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm text-white/80">
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4">Project Details</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm text-white/80">
                 <div className="bg-white/10 rounded-lg p-4">
                   <div className="font-semibold">Timeline</div>
                   <div className="text-white/60">2–4 weeks</div>

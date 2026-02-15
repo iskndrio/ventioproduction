@@ -7,5 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// API route for portfolio
 Route::get('/api/portfolios', [PortfolioController::class, 'index']);

@@ -27,6 +27,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Ventio Media Admin')
+            ->brandLogo('/images/ventiologo.png')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

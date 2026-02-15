@@ -14,25 +14,31 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 w-full backdrop-blur border-b z-50"
+      className="fixed top-0 w-full backdrop-blur border-b z-50 shadow-sm"
       style={{ backgroundColor: "#314b6e" }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, "home")}
-          className="flex items-center gap-3"
+          className="flex items-center gap-2 sm:gap-3"
         >
           <img
             src="/images/ventiologo.png"
             alt="Ventio Production Logo"
-            className="h-10 w-10 md:h-12 md:w-12 object-contain"
+            className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 object-contain"
           />
           <span
             className="hidden md:inline-block text-lg font-bold"
             style={{ color: "#fdfbf0", fontFamily: "Pairfly" }}
           >
             V E N T I O . P R O D U C T I O N
+          </span>
+          <span
+            className="inline-block md:hidden text-sm font-semibold tracking-wide"
+            style={{ color: "#fdfbf0", fontFamily: "Pairfly" }}
+          >
+            VENTIO
           </span>
         </a>
 
@@ -43,31 +49,35 @@ export default function Navbar() {
           <a href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
           <a href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>
           <a href="#services" onClick={(e) => handleNavClick(e, "services")}>Services</a>
+          <a href="#portfolio" onClick={(e) => handleNavClick(e, "portfolio")}>Portfolio</a>
           <a href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
         </div>
 
         {/* MOBILE BUTTON */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl"
+          className="md:hidden text-2xl p-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
           style={{ color: "#fdfbf0" }}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          ☰
+          {open ? "✕" : "☰"}
         </button>
       </div>
       {open && (
         <div
-          className="md:hidden px-6 pb-4 space-y-2"
+          className="md:hidden px-4 sm:px-6 pb-4 pt-2 space-y-1"
           style={{
             backgroundColor: "#314b6e",
             color: "#fdfbf0",
             fontFamily: "Poppins",
           }}
         >
-          <a href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
-          <a href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>
-          <a href="#services" onClick={(e) => handleNavClick(e, "services")}>Services</a>
-          <a href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
+          <a className="block py-2.5 text-base font-medium" href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
+          <a className="block py-2.5 text-base font-medium" href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>
+          <a className="block py-2.5 text-base font-medium" href="#services" onClick={(e) => handleNavClick(e, "services")}>Services</a>
+          <a className="block py-2.5 text-base font-medium" href="#portfolio" onClick={(e) => handleNavClick(e, "portfolio")}>Portfolio</a>
+          <a className="block py-2.5 text-base font-medium" href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
         </div>
       )}
     </nav>

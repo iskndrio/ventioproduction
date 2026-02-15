@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
-use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
@@ -12,7 +11,17 @@ class PortfolioController extends Controller
     {
         $portfolios = Portfolio::where('is_active', true)
             ->orderBy('order', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'        => $item->id,
+                    'title'     => $item->title,
+                    'category'  => $item->category,
+                    'sinopsis'  => $item->sinopsis,
+                    'image'     => $item->image,
+                    'video_url' => $item->video_embed,
+                ];
+            });
 
         return response()->json($portfolios);
     }

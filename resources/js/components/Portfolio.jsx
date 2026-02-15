@@ -1,20 +1,38 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Portfolio() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const toYoutubeEmbed = (url) => {
+    if (!url) return null;
+    if (url.includes("youtu.be")) {
+      const id = url.split("youtu.be/")[1]?.split("?")[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+    if (url.includes("watch?v=")) {
+      const id = new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${id}`;
+    }
+    if (url.includes("/embed/")) {
+      return url;
+    }
+
+    return url;
+  };
 
   useEffect(() => {
     const fetchPortfolios = async () => {
       try {
-        const response = await fetch('/api/portfolios');
+        const response = await fetch("/api/portfolios");
         const data = await response.json();
         setPortfolioItems(data);
-        setLoading(false);
       } catch (error) {
-        console.error('Error fetching portfolios:', error);
+        console.error("Error fetching portfolios:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -43,7 +61,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-24" style={{ backgroundColor: "#090f15" }}>
+    <section id="portfolio" className="py-24 bg-[#090f15]">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -52,24 +70,28 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">Our Portfolio</h2>
-          <p
-            className="text-white max-w-2xl mx-auto opacity-90"
-            style={{ fontFamily: "Poppins" }}
-          >
-            Explore our latest projects and creative works across various categories
+          <h2 className="text-4xl font-bold mb-6 text-white">
+            Our Portfolio
+          </h2>
+          <p className="text-white/80 max-w-2xl mx-auto">
+            Explore our latest projects and creative works
           </p>
         </motion.div>
 
-        {loading ? (
-          <div className="text-center text-white">
-            <p>Loading portfolios...</p>
+        {loading && (
+          <div className="text-center text-white py-8">
+            <FontAwesomeIcon icon={faSpinner} spin className="text-4xl" />
+            <p className="mt-4">Loading portfolios...</p>
           </div>
-        ) : portfolioItems.length === 0 ? (
+        )}
+
+        {!loading && portfolioItems.length === 0 && (
           <div className="text-center text-white">
-            <p>No portfolios available yet.</p>
+            No portfolios available yet.
           </div>
-        ) : (
+        )}
+
+        {!loading && portfolioItems.length > 0 && (
           <motion.div
             className="grid md:grid-cols-3 gap-8"
             variants={containerVariants}
@@ -78,28 +100,29 @@ export default function Portfolio() {
             viewport={{ once: true }}
           >
             {portfolioItems.map((item) => (
-            <motion.div
-              key={item.id}
-              variants={itemVariants}
-              whileHover={{ y: -10 }}
-              className="group cursor-pointer"
-            >
-              <div className="relative overflow-hidden rounded-lg h-64 bg-gray-300">
-                {item.video_url ? (
-                  <>
-                    <img
-                      src={item.image ? `/storage/${item.image}` : 'https://via.placeholder.com/400x300'}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
-                    />
-                    <div 
-                      className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition duration-300 cursor-pointer"
+              <motion.div
+                key={item.id}
+                variants={itemVariants}
+                whileHover={{ y: -10 }}
+                className="group cursor-pointer"
+              >
+                <div className="relative overflow-hidden rounded-lg h-64 bg-gray-800">
+                  <img
+                    src={
+                      item.image
+                        ? `/storage/${item.image}`
+                        : "https://via.placeholder.com/400x300"
+                    }
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
+                  />
+
+                  {item.video_url && (
+                    <div
+                      className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/60 transition"
                       onClick={() => setSelectedVideo(item.video_url)}
                     >
-                      <motion.div
-                        className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center"
-                        whileHover={{ scale: 1.1 }}
-                      >
+                      <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
                         <svg
                           className="w-8 h-8 text-white ml-1"
                           fill="currentColor"
@@ -107,89 +130,69 @@ export default function Portfolio() {
                         >
                           <path d="M8 5v14l11-7z" />
                         </svg>
-                      </motion.div>
+                      </div>
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <img
-                      src={item.image ? `/storage/${item.image}` : 'https://via.placeholder.com/400x300'}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition duration-300 flex items-center justify-center">
-                      <motion.div
-                        className="text-center text-white opacity-0 group-hover:opacity-100 transition duration-300"
-                        initial={{ scale: 0.8 }}
-                        whileHover={{ scale: 1 }}
-                      >
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                        <p
-                          className="text-sm"
-                          style={{ fontFamily: "Poppins" }}
-                        >
-                          {item.category}
-                        </p>
-                      </motion.div>
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="mt-4">
-                <span
-                  className="inline-block px-3 py-1 bg-blue-800 text-white text-xs font-semibold rounded-full mb-2"
-                  style={{ fontFamily: "Poppins" }}
-                >
-                  {item.category}
-                </span>
-                <h3
-                  className="text-lg font-semibold text-white mb-2"
-                  style={{ fontFamily: "Poppins" }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="text-gray-300 text-sm"
-                  style={{ fontFamily: "Poppins" }}
-                >
-                  {item.sinopsis}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                  )}
+                </div>
+
+                <div className="mt-4">
+                  <span className="inline-block px-3 py-1 bg-blue-700 text-white text-xs rounded-full mb-2">
+                    {item.category}
+                  </span>
+                  <h3 className="text-lg font-semibold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm mt-1">
+                    {item.sinopsis}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         )}
 
         {selectedVideo && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
             onClick={() => setSelectedVideo(null)}
           >
             <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
               className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedVideo(null)}
-                className="absolute top-4 right-4 text-white text-2xl z-10 bg-black bg-opacity-50 w-10 h-10 flex items-center justify-center rounded-full hover:bg-opacity-80"
+                className="absolute top-4 right-4 text-white text-2xl z-10 bg-black/60 w-10 h-10 rounded-full"
               >
                 ✕
               </button>
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src={selectedVideo + "?autoplay=1"}
-                  title="Portfolio Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+
+              <div
+                className="relative w-full"
+                style={{ paddingBottom: "56.25%" }}
+              >
+                {selectedVideo.includes("youtube") ||
+                  selectedVideo.includes("youtu.be") ? (
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={toYoutubeEmbed(selectedVideo)}
+                    title="Portfolio Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <video
+                    className="absolute inset-0 w-full h-full object-contain"
+                    src={selectedVideo}
+                    controls
+                    autoPlay
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>

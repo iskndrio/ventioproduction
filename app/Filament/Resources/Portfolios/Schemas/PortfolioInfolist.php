@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Portfolios\Schemas;
 
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Text;
 use Filament\Schemas\Schema;
 
 class PortfolioInfolist
@@ -14,16 +14,26 @@ class PortfolioInfolist
             ->components([
                 Section::make('Portfolio Information')
                     ->schema([
-                        Text::make('Title: {title}'),
-                        Text::make('Category: {category}'),
-                        Text::make('Synopsis: {sinopsis}'),
-                        Text::make('Video URL: {video_url}'),
+                        TextEntry::make('title')
+                            ->label('Title'),
+                        TextEntry::make('category')
+                            ->label('Category'),
+                        TextEntry::make('sinopsis')
+                            ->label('Synopsis'),
+                        TextEntry::make('video_url')
+                            ->label('Video URL')
+                            ->url(fn ($state) => $state),
                     ])->columns(1),
                 
                 Section::make('Settings')
                     ->schema([
-                        Text::make('Display Order: {order}'),
-                        Text::make('Active: {is_active}'),
+                        TextEntry::make('order')
+                            ->label('Display Order'),
+                        TextEntry::make('is_active')
+                            ->label('Active')
+                            ->badge()
+                            ->color(fn (bool $state): string => $state ? 'success' : 'danger')
+                            ->formatStateUsing(fn (bool $state): string => $state ? 'Active' : 'Inactive'),
                     ])->columns(2),
             ]);
     }
