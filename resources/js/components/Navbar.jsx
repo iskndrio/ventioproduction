@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 w-full backdrop-blur border-b z-50 shadow-sm"
+      className="fixed top-0 w-full backdrop-blur z-50 shadow-sm"
       style={{ backgroundColor: "#314b6e" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
@@ -36,7 +36,7 @@ export default function Navbar() {
           </span>
           <span
             className="inline-block md:hidden text-sm font-semibold tracking-wide"
-            style={{ color: "#fdfbf0", fontFamily: "Pairfly" }}
+            style={{ color: "#fdfbf0", fontFamily: "Poppins" }}
           >
             VENTIO
           </span>
@@ -44,7 +44,7 @@ export default function Navbar() {
 
         <div
           className="hidden md:flex gap-8 font-medium"
-          style={{ color: "#fdfbf0", fontFamily: "Poppins" }}
+          style={{ color: "#fdfbf0" }}
         >
           <a href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
           <a href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>

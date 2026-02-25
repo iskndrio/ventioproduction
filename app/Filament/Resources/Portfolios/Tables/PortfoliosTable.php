@@ -39,6 +39,13 @@ class PortfoliosTable
                     ->searchable()
                     ->sortable(),
                 
+                TextColumn::make('video_url')
+                    ->label('Video Link')
+                    ->limit(30)
+                    ->url(fn ($record) => $record->video_url, shouldOpenInNewTab: true)
+                    ->placeholder('No video')
+                    ->toggleable(),
+                
                 IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean()

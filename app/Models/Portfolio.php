@@ -13,6 +13,8 @@ class Portfolio extends Model
         'image',
         'thumbnail',
         'video_url',
+        'trailer_url',
+        'full_movie_url',
         'is_active',
         'order',
     ];
@@ -26,17 +28,19 @@ class Portfolio extends Model
      * ===============================
      *  Accessor: video_embed
      *  Convert YouTube URL → embed
+     *  Priority: trailer_url > video_url
      * ===============================
      */
     protected $appends = ['video_embed'];
 
     public function getVideoEmbedAttribute()
     {
-        if (!$this->video_url) {
+        // Use trailer_url if available, fallback to video_url for backward compatibility
+        $url = $this->trailer_url ?? $this->video_url;
+        
+        if (!$url) {
             return null;
         }
-
-        $url = $this->video_url;
 
         // youtu.be/XXXX
         if (str_contains($url, 'youtu.be')) {
@@ -58,17 +62,18 @@ class Portfolio extends Model
         }
 
         // local video / mp4 / external
-        // local video / mp4 / external
         return $url;
     }
 
     public function getThumbnailAttribute()
     {
-        if (!$this->video_url) {
+        // Use trailer_url if available, fallback to video_url for backward compatibility
+        $url = $this->trailer_url ?? $this->video_url;
+        
+        if (!$url) {
             return null;
         }
 
-        $url = $this->video_url;
         $videoId = null;
 
         // youtu.be/XXXX

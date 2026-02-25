@@ -14,12 +14,14 @@ class PortfolioController extends Controller
             ->get()
             ->map(function ($item) {
                 return [
-                    'id'        => $item->id,
-                    'title'     => $item->title,
-                    'category'  => $item->category,
-                    'sinopsis'  => $item->sinopsis,
-                    'image'     => $item->image,
-                    'video_url' => $item->video_embed,
+                    'id'             => $item->id,
+                    'title'          => $item->title,
+                    'category'       => $item->category,
+                    'sinopsis'       => $item->sinopsis,
+                    'image'          => $item->image,
+                    'video_url'      => $item->video_embed,
+                    'trailer_url'    => $item->trailer_url,
+                    'full_movie_url' => $item->full_movie_url,
                 ];
             });
 

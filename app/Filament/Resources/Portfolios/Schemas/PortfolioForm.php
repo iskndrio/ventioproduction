@@ -39,10 +39,17 @@ class PortfolioForm
                             ->rows(3)
                             ->maxLength(1000),
                         
-                        TextInput::make('video_url')
-                            ->label('Video URL (YouTube Embed)')
+                        TextInput::make('trailer_url')
+                            ->label('Trailer URL (YouTube)')
                             ->url()
-                            ->placeholder('https://www.youtube.com/embed/...'),
+                            ->placeholder('https://www.youtube.com/watch?v=... or https://youtu.be/...')
+                            ->helperText('YouTube URL for trailer - displayed on website with preview'),
+                        
+                        TextInput::make('full_movie_url')
+                            ->label('Full Movie URL')
+                            ->url()
+                            ->placeholder('https://...')
+                            ->helperText('Any URL (YouTube, Vimeo, Drive, etc.) for full movie - shown as "Watch Full Movie" link'),
                     ])->columns(1),
                           
                 Section::make('Settings')

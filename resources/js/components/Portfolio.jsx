@@ -9,16 +9,23 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(true);
   const toYoutubeEmbed = (url) => {
     if (!url) return null;
+    
+    let videoId = null;
+    
     if (url.includes("youtu.be")) {
-      const id = url.split("youtu.be/")[1]?.split("?")[0];
-      return `https://www.youtube.com/embed/${id}`;
-    }
-    if (url.includes("watch?v=")) {
-      const id = new URL(url).searchParams.get("v");
-      return `https://www.youtube.com/embed/${id}`;
-    }
-    if (url.includes("/embed/")) {
+      videoId = url.split("youtu.be/")[1]?.split("?")[0];
+    } else if (url.includes("watch?v=")) {
+      try {
+        videoId = new URL(url).searchParams.get("v");
+      } catch {
+        return url;
+      }
+    } else if (url.includes("/embed/")) {
       return url;
+    }
+
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
     }
 
     return url;
@@ -56,6 +63,16 @@ export default function Portfolio() {
 
     // Use maxresdefault for highest quality, fallback to hqdefault if not available
     return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  };
+
+  const getTrailerUrl = (item) => {
+    // Priority: trailer_url > video_url (for backward compatibility)
+    return item.trailer_url || item.video_url;
+  };
+
+  const getFullMovieUrl = (item) => {
+    // If full_movie_url exists, use it. Otherwise use trailer/video url
+    return item.full_movie_url || item.trailer_url || item.video_url;
   };
 
   useEffect(() => {
@@ -143,8 +160,8 @@ export default function Portfolio() {
                 <div className="relative overflow-hidden rounded-lg h-64 bg-gray-800">
                   <img
                     src={
-                      item.video_url && getYoutubeThumbnail(item.video_url)
-                        ? getYoutubeThumbnail(item.video_url)
+                      getTrailerUrl(item) && getYoutubeThumbnail(getTrailerUrl(item))
+                        ? getYoutubeThumbnail(getTrailerUrl(item))
                         : item.image
                           ? `/storage/${item.image}`
                           : "https://via.placeholder.com/400x300"
@@ -153,10 +170,10 @@ export default function Portfolio() {
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                   />
 
-                  {item.video_url && (
+                  {getTrailerUrl(item) && (
                     <div
                       className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/60 transition"
-                      onClick={() => setSelectedVideo(item.video_url)}
+                      onClick={() => setSelectedVideo(getTrailerUrl(item))}
                     >
                       <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
                         <svg
@@ -181,6 +198,17 @@ export default function Portfolio() {
                   <p className="text-gray-300 text-sm mt-1">
                     {item.sinopsis}
                   </p>
+                  {getFullMovieUrl(item) && (
+                    <a
+                      href={getFullMovieUrl(item)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 text-sm text-blue-500 hover:text-white transition"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Watch Full Movie →
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}

@@ -22,7 +22,11 @@ class PortfolioInfolist
                             ->label('Synopsis'),
                         TextEntry::make('video_url')
                             ->label('Video URL')
-                            ->url(fn ($state) => $state),
+                            ->url(fn ($state) => $state, shouldOpenInNewTab: true)
+                            ->placeholder('No video')
+                            ->copyable()
+                            ->copyMessage('URL copied!')
+                            ->copyMessageDuration(1500),
                     ])->columns(1),
                 
                 Section::make('Settings')
