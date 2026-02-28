@@ -64,7 +64,7 @@ export default function Hero() {
           className="text-base sm:text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto"
         >
           Ventio crafts visual narratives with quiet pressure and bold
-          impact — slow, soft, unforgettable.
+          impact slow, soft, unforgettable.
         </motion.p>
         <motion.div
           {...fadeUp(0.55)}
