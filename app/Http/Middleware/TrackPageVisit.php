@@ -18,7 +18,7 @@ class TrackPageVisit
     public function handle(Request $request, Closure $next): Response
     {
         // Skip tracking for admin panel and API routes
-        if ($request->is('admin/*') || $request->is('api/*')) {
+        if ($request->is('vntm-dashboard-x9k2/*') || $request->is('api/*')) {
             return $next($request);
         }
 
