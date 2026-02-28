@@ -1,11 +1,21 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+const navItems = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "portfolio", label: "Portfolio" },
+  { id: "contact", label: "Contact" },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
+    setActive(targetId);
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -46,15 +56,29 @@ export default function Navbar() {
           </span>
         </a>
 
+        {/* DESKTOP MENU */}
         <div
           className="hidden md:flex gap-8 font-medium"
           style={{ color: "#fdfbf0" }}
         >
-          <a href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
-          <a href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>
-          <a href="#services" onClick={(e) => handleNavClick(e, "services")}>Services</a>
-          <a href="#portfolio" onClick={(e) => handleNavClick(e, "portfolio")}>Portfolio</a>
-          <a href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
+          {navItems.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={(e) => handleNavClick(e, id)}
+              className="relative py-1 group"
+            >
+              {label}
+              <motion.span
+                layoutId="desktop-underline"
+                className="absolute left-0 -bottom-0.5 h-0.5 w-full rounded-full"
+                style={{ backgroundColor: "#fdfbf0" }}
+                initial={false}
+                animate={{ opacity: active === id ? 1 : 0, scaleX: active === id ? 1 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </a>
+          ))}
         </div>
 
         {/* MOBILE BUTTON */}
@@ -68,6 +92,8 @@ export default function Navbar() {
           {open ? "✕" : "☰"}
         </button>
       </div>
+
+      {/* MOBILE MENU */}
       {open && (
         <div
           className="md:hidden px-4 sm:px-6 pb-4 pt-2 space-y-1"
@@ -77,11 +103,26 @@ export default function Navbar() {
             fontFamily: "Poppins",
           }}
         >
-          <a className="block py-2.5 text-base font-medium" href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
-          <a className="block py-2.5 text-base font-medium" href="#about" onClick={(e) => handleNavClick(e, "about")}>About</a>
-          <a className="block py-2.5 text-base font-medium" href="#services" onClick={(e) => handleNavClick(e, "services")}>Services</a>
-          <a className="block py-2.5 text-base font-medium" href="#portfolio" onClick={(e) => handleNavClick(e, "portfolio")}>Portfolio</a>
-          <a className="block py-2.5 text-base font-medium" href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
+          {navItems.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={(e) => handleNavClick(e, id)}
+              className="relative block py-2.5 text-base font-medium"
+            >
+              {label}
+              {active === id && (
+                <motion.span
+                  layoutId="mobile-underline"
+                  className="absolute left-0 bottom-1 h-0.5 rounded-full"
+                  style={{ backgroundColor: "#fdfbf0", width: "2rem" }}
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{ scaleX: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+              )}
+            </a>
+          ))}
         </div>
       )}
     </motion.nav>

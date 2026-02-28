@@ -22,6 +22,11 @@ class PortfolioResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Content';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return PortfolioForm::configure($schema);
