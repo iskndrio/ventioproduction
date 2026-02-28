@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav
+    <motion.nav
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 w-full backdrop-blur z-50 shadow-sm"
       style={{ backgroundColor: "#314b6e" }}
     >
@@ -32,7 +36,7 @@ export default function Navbar() {
             className="hidden md:inline-block text-lg font-bold"
             style={{ color: "#fdfbf0", fontFamily: "Pairfly" }}
           >
-            V E N T I O . P R O D U C T I O N
+            V E N T I O &nbsp; P R O D U C T I O N
           </span>
           <span
             className="inline-block md:hidden text-sm font-semibold tracking-wide"
@@ -80,6 +84,6 @@ export default function Navbar() {
           <a className="block py-2.5 text-base font-medium" href="#contact" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 }

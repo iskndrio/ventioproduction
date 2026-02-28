@@ -26,11 +26,12 @@ class PortfolioForm
                         Select::make('category')
                             ->label('Category')
                             ->options([
-                                'Video' => 'Video',
-                                'Photography' => 'Photography',
-                                'Design' => 'Design',
-                                'Animation' => 'Animation',
-                                'Marketing' => 'Marketing',
+                                'Movie Production' => 'Movie Production',
+                                'Company Profile' => 'Company Profile',
+                                'Advertising Video' => 'Advertising Video',
+                                'Campaign Strategy' => 'Campaign Strategy',
+                                'Professional Videography' => 'Professional Videography',
+                                'Creative Direction' => 'Creative Direction',
                             ])
                             ->required(),
                         
