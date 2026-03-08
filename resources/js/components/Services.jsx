@@ -75,7 +75,7 @@ export default function Services() {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
               }}
-              className="group p-8 border border-white/10 hover:border-white/30 transition bg-white/5 rounded-2xl"
+              className="group p-8 border border-white/10 hover:border-white/30 transition bg-white/5"
             >
               <div className="text-3xl mb-4 text-white/90 bg-white/10 w-12 h-12 rounded-full flex items-center justify-center">
                 <FontAwesomeIcon icon={iconMap[service.icon] ?? faFilm} />
@@ -84,6 +84,21 @@ export default function Services() {
               <p className="text-white/70">{service.description}</p>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <a
+            href="#contact"
+            className="inline-block text-blue/80 hover:text-white px-8 py-3 transition-all duration-300 tracking-widest text-sm uppercase underline"
+          >
+            Interested in our services? Let's talk
+          </a>
         </motion.div>
       </div>
     </section>
