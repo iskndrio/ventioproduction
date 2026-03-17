@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const bgImage = "/images/ventioteam.jpeg";
+const bgImage = "/images/ventioteam.jpg";
 
 export default function About() {
   return (

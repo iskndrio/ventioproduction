@@ -95,9 +95,10 @@ export default function Services() {
         >
           <a
             href="#contact"
-            className="inline-block text-blue/80 hover:text-white px-8 py-3 transition-all duration-300 tracking-widest text-sm uppercase underline"
+            className="inline-block text-blue/80 hover:text-white px-8 py-3 transition-all duration-300 tracking-widest text-sm uppercase group"
           >
             Interested in our services? Let's talk
+            <span className="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
           </a>
         </motion.div>
       </div>

@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
+const whatsappNumber = "6287717918481";
+const whatsappMessage = "Halo Ventio Production, saya tertarik untuk mengajak kerja sama. Bisa diskusi lebih lanjut?";
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
 export default function Contact() {
   return (
     <section id="contact" className="py-16 sm:py-24 bg-[#314b6e]">
@@ -21,7 +25,7 @@ export default function Contact() {
             </p>
             <div className="flex gap-5">
               <a
-                href="https://wa.me/+6287717918481"
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-3xl hover:scale-110 transition"
